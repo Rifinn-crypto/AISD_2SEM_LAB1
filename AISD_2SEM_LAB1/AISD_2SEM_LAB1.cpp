@@ -497,6 +497,7 @@ void timeTestTree()
 	std::cout << "Average time remove in container of 100000 elements of TREE ::::::" << removeTime100_000.count() << std::endl;
 }
 
+
 void testTree()
 {
 	BinaryTree<size_t> tree = BinaryTree<size_t>(8);
