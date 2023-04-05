@@ -109,7 +109,7 @@ public:
 			insert(current->left, key);
 	}
 
-	void remove_norm(T key)
+	void remove_public(T key)
 	{
 		if (!root)
 		{
@@ -152,7 +152,7 @@ public:
 			size++;
 			root = new node<T>(key);
 			return;
-		}// 1 2 3 4 1 1 57 28
+		}
 		if (contains(key))
 			return;
 		node<T>* current = root;
@@ -184,13 +184,7 @@ public:
 		}
 	}
 };
-/*
-Напишите функции, возвращающие объединение и симметрическую разность 2-х множеств целых чисел
-A = { 1, 2, 3 , 4 }
-B = { 4, 5, 6 }
-C = { 1, 2, 3, 4, 5, 6 } - Объединение хотя бы 1 из множеств
-D = Симм разность = 1, 2, 3, 5, 6 - либо там, либо там
-*/
+
 
 template<typename T>
 bool Contains(std::vector<T>& vec, T element)
@@ -264,10 +258,7 @@ void task_second()
 	}
 }
 
-//void tree_test()
-//{
-//
-//}
+
 
 size_t lcg() {
 	static size_t x = 0;
@@ -411,7 +402,7 @@ std::chrono::duration<double> time_remove_vector_collection(std::vector<T> vecto
 	time /= step;
 	return time;
 }
-//remove_norm
+
 template<typename T>
 std::chrono::duration<double> time_remove_tree_collection(BinaryTree<T>& tree, int step, int count)
 {
@@ -422,7 +413,7 @@ std::chrono::duration<double> time_remove_tree_collection(BinaryTree<T>& tree, i
 		auto time_start = std::chrono::system_clock::now();
 		for (size_t i = 0; i < step; i++)
 		{
-			tree.remove_norm(lcg());
+			tree.remove_public(lcg());
 		}
 		auto time_end = std::chrono::system_clock::now();
 		time += time_end - time_start;
@@ -453,24 +444,24 @@ void timeTestVector()
 	auto removeTime1_000 = time_remove_vector_collection<size_t>(vect1_000, 1000, 1000);
 	std::cout << "Average time remove in container of 1000 elements of Vector ::::::" << removeTime1_000.count() << std::endl;
 
-	auto findTime10_000 = time_find_vector_collection<size_t>(vect10_000, 10000, 10000);
+	auto findTime10_000 = time_find_vector_collection<size_t>(vect10_000, 1000, 10000);
 	std::cout << "Average time find in container of 10000 elements of Vector ::::::" << findTime10_000.count() << std::endl;
 
 
-	auto addTime10_000 = time_add_vector_collection<size_t>(vect10_000, 10000, 10000);
+	auto addTime10_000 = time_add_vector_collection<size_t>(vect10_000, 1000, 10000);
 	std::cout << "Average time ADD in container of 10000 elements of Vector ::::::" << addTime10_000.count() << std::endl;
 
-	auto removeTime10_000 = time_remove_vector_collection<size_t>(vect10_000, 10000, 10000);
+	auto removeTime10_000 = time_remove_vector_collection<size_t>(vect10_000, 1000, 10000);
 	std::cout << "Average time remove in container of 10000 elements of Vector ::::::" << removeTime10_000.count() << std::endl;
 
-	auto findTime100_000 = time_find_vector_collection<size_t>(vect100_000, 100000, 100000);
+	auto findTime100_000 = time_find_vector_collection<size_t>(vect100_000, 1000, 100000);
 	std::cout << "Average time find in container of 100000 elements of Vector ::::::" << findTime100_000.count() << std::endl;
 
 
-	auto addTime100_000 = time_add_vector_collection<size_t>(vect100_000, 100000, 100000);
+	auto addTime100_000 = time_add_vector_collection<size_t>(vect100_000, 1000, 100000);
 	std::cout << "Average time ADD in container of 100000 elements of Vector ::::::" << addTime1_000.count() << std::endl;
 
-	auto removeTime100_000 = time_remove_vector_collection<size_t>(vect100_000, 100000, 100000);
+	auto removeTime100_000 = time_remove_vector_collection<size_t>(vect100_000, 1000, 100000);
 	std::cout << "Average time remove in container of 100000 elements of Vector ::::::" << removeTime100_000.count() << std::endl;
 }
 
@@ -485,22 +476,22 @@ void timeTestTree()
 	std::cout << "Average time generate 100_000 elements of Tree ::::::" << time100_000.count() << std::endl;
 
 	auto findTime1_000 = time_find_tree_collection(tree1_000, 1000, 1000);
-	auto findTime10_000 = time_find_tree_collection(tree10_000, 1000, 1000);
+	auto findTime10_000 = time_find_tree_collection(tree10_000, 1000, 10000);
 	auto findTime100_000 = time_find_tree_collection(tree100_000, 1000, 100000);
 	std::cout << "Average time find in container of 1000 elements of TREE ::::::" << findTime1_000.count() << std::endl;
 	std::cout << "Average time find in container of 10000 elements of TREE ::::::" << findTime10_000.count() << std::endl;
 	std::cout << "Average time find in container of 100000 elements of TREE ::::::" << findTime100_000.count() << std::endl;
 
 	auto addTime1_000 = time_add_tree_collection(tree1_000, 1000, 1000);
-	auto addTime10_000 = time_add_tree_collection(tree1_000, 10000, 10000);
-	auto addTime100_000 = time_add_tree_collection(tree1_000, 100000, 100000);
+	auto addTime10_000 = time_add_tree_collection(tree10_000, 1000, 10000);
+	auto addTime100_000 = time_add_tree_collection(tree100_000, 1000, 100000);
 	std::cout << "Average time ADD in container of 1000 elements of TREE ::::::" << addTime1_000.count() << std::endl;
 	std::cout << "Average time ADD in container of 10000 elements of TREE ::::::" << addTime10_000.count() << std::endl;
 	std::cout << "Average time ADD in container of 100000 elements of TREE ::::::" << addTime100_000.count() << std::endl;
 
 	auto removeTime1_000 = time_remove_tree_collection(tree1_000, 1000, 1000);
-	auto removeTime10_000 = time_remove_tree_collection(tree1_000, 10000, 10000);
-	auto removeTime100_000 = time_remove_tree_collection(tree1_000, 100000, 100000);
+	auto removeTime10_000 = time_remove_tree_collection(tree10_000, 1000, 10000);
+	auto removeTime100_000 = time_remove_tree_collection(tree100_000, 1000, 100000);
 	std::cout << "Average time remove in container of 1000 elements of TREE ::::::" << removeTime1_000.count() << std::endl;
 	std::cout << "Average time remove in container of 10000 elements of TREE ::::::" << removeTime10_000.count() << std::endl;
 	std::cout << "Average time remove in container of 100000 elements of TREE ::::::" << removeTime100_000.count() << std::endl;
@@ -525,15 +516,15 @@ void testTree()
 	tree.printr();
 	std::cout << std::endl;
 	std::cout << std::endl;
-	tree.remove_norm(10);
+	tree.remove_public(10);
 	tree.printr();
 }
 
 
 int main()
 {
+	/*testTree();*/
 	task_second();
-	//tree_test();
 	timeTestVector();
 	timeTestTree();
 }
